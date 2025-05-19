@@ -1,0 +1,46 @@
+_BASE_: "./Base-C2_L_R5021k_640b64_4x.yaml"
+MODEL:
+  ROI_BOX_HEAD:
+    USE_ZEROSHOT_CLS: false
+    FED_LOSS_FREQ_WEIGHT: 0.5
+  WEIGHTS: "models/swin_large_patch4_window12_384_22k.pth"
+  BACKBONE:
+    NAME: build_swintransformer_fpn_backbone
+  SWIN:
+    SIZE: L-22k-384
+  FPN:
+    IN_FEATURES: ["swin1", "swin2", "swin3"]
+  ACTIVE_MODE: "paste_or_ori"
+SOLVER:
+  MAX_ITER: 100000 
+  CHECKPOINT_PERIOD: 10000
+  IMS_PER_BATCH: 16
+  BASE_LR: 0.0001
+  MODEL_EMA: 0.999
+DATASETS:
+  TRAIN: ("lvis_v1_train",)
+  TEST: ("lvis_v1_val",)
+
+INPUT:
+  INST_POOL: false
+  INST_POOL_FEED: true
+  INST_POOL_PATH: "/annotations"  # "YOUR_DATASET_ANNOTATION_PATH"
+  INST_POOL_ROOT: "/images" # "YOUR_DATASET_IMAGES_PATH"
+  INST_POOL_FORMAT: "RGBA"
+  USE_COPY_METHOD: "syn_copy"
+  USE_INSTABOOST: false
+  MASK_FORMAT: bitmask
+  CP_METHOD: ['basic']
+  RANDOM_ROTATE: false
+  INST_POOL_SAMPLE_TYPE: "uniform" 
+  TRAIN_SIZE: 896
+  ROUND_RESET: true
+  INIT_ROUND: false
+  NUM_ROUNDS: 10
+TEST:
+  EVAL_PERIOD: 10000 
+DATALOADER:
+  SAMPLER_TRAIN: "RepeatFactorTrainingSampler"
+  REPEAT_THRESHOLD: 0.001
+  NUM_WORKERS: 16
+  PREFETCH_FACTOR: 8
