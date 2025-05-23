@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import time
 from diffusers import StableDiffusion3Pipeline
-# from diffusers import StableDiffusionPipeline 
+# from diffusers import StableDiffusionPipeline # for stable diffusion 1.5
 from generation_config import GenerationConfig
 from load_model import load_model
 
