@@ -1670,10 +1670,6 @@ class EmbedRCNN(GeneralizedRCNN):
         proposal[0].set(name = 'objectness_logits', value = torch.tensor([1.0]).to(images.device))
 
 
-        # proposal.fields['scores']= torch.tensor([0.5]).to(images.device)
-        # proposal.fields['pred_classes']= torch.tensor([0]).to(images.device)
-        # proposal.fields['proposal_boxes']= Boxes(torch.tensor([0,0, images.image_sizes[0][0], images.image_sizes[0][1] ]).to(images.device))
-        # proposal.fields['objectness_logits']= torch.tensor([1.0]).to(images.device)
         return proposal
 
     def inference(
@@ -1688,32 +1684,11 @@ class EmbedRCNN(GeneralizedRCNN):
         images = self.preprocess_image(batched_inputs)
         features = self.backbone(images.tensor)
         
-        # if 'proposals' in  batched_inputs[0]:
-        #     proposals = [x["proposals"].to(self.device) for x in batched_inputs]
-        # else :
-        # proposals, _ = self.proposal_generator(images, features, None)
-
-        # print("images:")
-        # print(len(images))
-        # print(images[0])
-        # print(images.image_sizes[0])
-        # print(images)
-        # print("proposals:")
-        # print(type(proposals[0]))
-        # print(proposals)
 
         proposals = self.create_simple_proposals(images)
 
         results, _ = self.roi_heads(images, features, proposals)
-        # if do_postprocess:
-        #     assert not torch.jit.is_scripting(), \
-        #         "Scripting is not supported for postprocess."
-        #     results, inds =  self._postprocess(
-        #         results, batched_inputs, images.image_sizes)
-        #     if hasattr(self.roi_heads, 'save_bbox_features') :
-        #         self.roi_heads.save_bbox_features = self.roi_heads.save_bbox_features[inds]
-        #     return results
-        # else:
+
         return results
     def preprocess_image(self, batched_inputs):
         """

@@ -15,7 +15,7 @@ def parse_args():
     parser.add_argument("--idx", type=int)
     parser.add_argument("--round", type=int, default=10)
     parser.add_argument("--bsz", type=int, default=8)
-    parser.add_argument("--gpu", type=int, default=3)
+    parser.add_argument("--gpu", type=int, default=4)
     parser.add_argument("--n", type=int, default=40)
     parser.add_argument("--gPerRd", type=int, default=1203)
     parser.add_argument("--caption_json", default="./data", help="if not '', will only generate DallE images from this json, use `idx` and `scene` to select which to generate")
