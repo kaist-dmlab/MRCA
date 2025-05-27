@@ -1,0 +1,15 @@
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch
+--extra-index-url https://download.pytorch.org/whl/cu118
+torchvision
+numpy<2
+opencv-python
+timm
+scipy
+scikit-image
+kornia
+
+tqdm
+prettytable
+
+huggingface_hub
