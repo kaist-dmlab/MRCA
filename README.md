@@ -67,14 +67,6 @@ bash launch.sh --config configs/MRCA/MRCA_R50.yaml --eval-only
 
 ```
 
-## Models (LVIS dataset)
-| Backbone  | method | $AP^{box}$ | $AP^{mask}$ | $AP_r^{box}$ | $AP_r^{mask}$ | checkpoint |
-|:--------:|:----------:|:----------:|:-----------:|:------------:|:-------------:|:-------------:|
-| ResNet50  | No Aug. |    31.50    |     28.20    |     22.60     |    20.20    | [reference](https://www.lvisdataset.org/assets/challenge_reports/2020/CenterNet2.pdf) |
-| ResNet50  | MRCA  |    35.56    |     31.81    |     28.14     |      25.93    | [model](https://drive.google.com/drive/folders/17IN1J4SZyXkQm3swRAoOa-IaJEroKN-0?usp=sharing) |
-|  Swin-L  | No Aug. |  47.43    |     42.30    |     41.00    |    36.75     | [reference](https://github.com/yoctta/XPaste) |
-|  Swin-L  | MRCA  |    51.80    |     45.91    |     51.58     |     46.84   | [model](https://drive.google.com/drive/folders/17IN1J4SZyXkQm3swRAoOa-IaJEroKN-0?usp=sharing) |
-
 
 
 ## References & Acknowledgements
