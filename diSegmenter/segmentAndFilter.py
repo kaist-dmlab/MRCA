@@ -106,17 +106,10 @@ if __name__ == "__main__":
         inputs = clipProcessor(text=[classPrompt], images=[image_w, image_b], return_tensors="pt", padding=True).to(device)
         outputs = clip(**inputs)
         logits_per_image = outputs.logits_per_image
-        # print(logits_per_image)
-        # print(max([logits_per_image[0][0].item(), logits_per_image[1][0].item()]))
+
         if max([logits_per_image[0][0].item(), logits_per_image[1][0].item()]) < 25:
             return True
         return False
-
-    # pathFormat = "/data2/objdet/fg_lvis/{}/{}"
-    # writePathFormat = "/data2/objdet/fg_mask/{}_mask/{}{}"
-
-    # pathFormat = "/data3/objdet/fg_oiv7/{}/{}"
-    # writePathFormat = "/data3/objdet//fg_oiv7_mask/{}_mask/{}{}"
 
     pathFormat = "/data3/objdet/lvis_feedback_sd3/raw"
     writePathFormat = "/data3/objdet/lvis_feedback_sd3/segmented"
@@ -151,8 +144,7 @@ if __name__ == "__main__":
         if not os.path.exists("/data3/objdet/lvis_feedback_sd3/segmented"): 
             os.mkdir("/data3/objdet/lvis_feedback_sd3/segmented")
 
-        # if not os.path.exists("/data3/objdet/lvis_feedback_sd3/segmented/rd{}".format(str(0))): 
-        #     os.mkdir("/data3/objdet/lvis_feedback_sd3/segmented/rd{}".format(str(0)))
+
 
         numSelList = [[] for x in range(len(numGenList))]
 
@@ -172,13 +164,12 @@ if __name__ == "__main__":
                 image, masks = extract_object(birefnet, imagepath = imgpath)
 
             # select images with clip
-                # image.save(writePath2)
+
                 if not filter_by_clip(classPrompt, image, clip, clipProcessor, device):
                     numSelList[numGenIdx].append(imgpath)
                     masks.save(writePath)
                     numSelected +=1
 
-        print(numSelected)
         
         f = open("/data3/objdet/lvis_feedback_sd3/segmented/meta{}.txt".format(str(rd)), 'w')
         f.write(str(numSelList))
@@ -189,45 +180,3 @@ if __name__ == "__main__":
 
 
 
-
-    # @torch.no_grad()
-    # def get_CLIP_score(caption: str, images: list):
-    #     logits_per_images = []
-    #     for img in batchify(images, 400):
-    #         inputs = processor(text=[caption] + voc_texts, images=img, return_tensors="pt", padding=True).to("cuda")
-    #         outputs = model(**inputs)
-    #         logits_per_image = outputs.logits_per_image  # this is the image-text similarity score
-    #         logits_per_images.append(logits_per_image)
-    #     # probs = logits_per_image.softmax(dim=1)  # we can take the softmax to get the label probabilities
-    #     return torch.cat(logits_per_images, dim=0)
-
-
-    # def scores_for_one_caption(caption: Path):
-    #     keep_files = 4 # 30
-    #     images = []
-    #     for image in caption.iterdir(): # eg 1.png
-    #         try:
-    #             images.append(Image.open(image))
-    #         except:
-    #             pass # weird generation error
-    #     scores = get_CLIP_score(caption.stem, images) # (#images, 22)
-
-    #     # 1. select top keep_files*2 lowest consistent_with_voc_labels
-    #     consistent_with_voc_labels = scores[:, 1:].max(1).values
-    #     double_keep_files = min(keep_files * 2, scores.size(0))
-    #     _, indices = torch.topk(-consistent_with_voc_labels.squeeze(), min(double_keep_files, scores.size(0)))
-    #     # 2. select top keep_files highest consistent_with_caption
-    #     consistent_with_caption = scores[indices, 0]
-    #     _, indices = torch.topk(consistent_with_caption, keep_files)
-    #     selected_images = [
-    #         images[i].filename.split("/")[-1]
-    #         for i in indices.detach().cpu().numpy().tolist()
-    #     ]
-    #     return caption.stem, selected_images
-
-
-
-    # # Visualization
-    # plt.axis("off")
-    # plt.imshow(extract_object(birefnet, imagepath='/data2/objdet/fg_lvis/an avocado/a photo of an avocado in pure background/17.png')[0])
-    # plt.show()
