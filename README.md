@@ -15,12 +15,6 @@ pip install -r requirements.txt
 Download [LVIS](https://www.lvisdataset.org/dataset), [OpenImages](https://storage.googleapis.com/openimages/web/visualizer/index.html), and [VOC2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/) datasets.
 
 
-## Getting Started 
-
-
-1. Generate images with stablediffusion3:  
-
-
 Set your access_token from [StableDiffusion3](https://huggingface.co/stabilityai/stable-diffusion-3-medium) to use the model.
 
 
@@ -29,11 +23,19 @@ Modify the pipeline_stable_diffusion_3.py file in diffusers library to the file 
 
 In the case of generating with stable diffusion 1.5, modify the pipeline_stable_diffusion.py file in diffusers library to the file in generator/guided_diffusion/pipeline_stable_diffusion.py
 
+
+
+## Getting Started 
+
+
+1. Generate images with stablediffusion3:  
+
 ```
 cd generator
 
 python generate.py
 ```
+
 
 
 2. Segment foreground objects and filter low-quality objects:
