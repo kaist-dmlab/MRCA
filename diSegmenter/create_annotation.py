@@ -4,16 +4,11 @@ import cv2
 import numpy as np
 from tqdm import tqdm
 
-# Paths to mask folder
-# MASK_DIR = "/data3/objdet/lvis_feedback/segmented"
-# OUTPUT_JSON = "/data3/objdet/lvis_feedback/annotations"
 
-MASK_DIR = "/data3/objdet/lvis_feedback_sd3/segmented"
-OUTPUT_JSON = "/data3/objdet/lvis_feedback_sd3/annotations"
+MASK_DIR = "./segmented"
+OUTPUT_JSON = "./annotations"
 
 
-# MASK_DIR = "/data3/objdet/pascal_feedback_sd3/segmented"
-# OUTPUT_JSON = "/data3/objdet/pascal_feedback_sd3/annotations"
 
 def get_image_info(file_name, image_id, height, width):
     return {

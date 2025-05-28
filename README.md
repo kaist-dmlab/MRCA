@@ -36,7 +36,17 @@ In the case of generating with stable diffusion 1.5, modify the pipeline_stable_
 ```
 cd generator
 
+# for generating with a single GPU
 python generate.py
+
+
+# for generating with multiple GPUs 
+
+
+python generate.py --gpu 0 --div 0 
+python generate.py --gpu 1 --div 1 
+python generate.py --gpu 2 --div 2 
+
 ```
 
 
