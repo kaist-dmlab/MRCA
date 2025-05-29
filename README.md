@@ -11,6 +11,7 @@ We recommend creating three separate Python environments for generation, segment
 This is because each component requires different dependencies (Detectron2 is deprecated for support on recent CUDA and torch versions, while generation models like StableDiffusion3 require recent versions).
 
 Follow [X-Paste](https://github.com/yoctta/XPaste) for basic requirements for training.
+Follow [BiRefNet](https://github.com/ZhengPeng7/BiRefNet) for cutting foreground objects.
 
 ```
 pip install -r requirements.txt
@@ -52,6 +53,9 @@ python generate.py --gpu 2 --div 2
 
 2. Segment foreground objects and filter low-quality objects:
 ```
+
+# set environment for BirefNet before running
+
 cd diSegmenter
 
 python segmentAndFilter.py
@@ -60,6 +64,8 @@ python segmentAndFilter.py
 
 3. Train instance segmentation model:
 ```
+# modify launch.sh for 
+
 # for training a single round
 bash launch.sh --config configs/MRCA/MRCA_R50.yaml 
 
