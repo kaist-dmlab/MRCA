@@ -64,7 +64,7 @@ python segmentAndFilter.py
 
 3. Train instance segmentation model:
 ```
-# modify launch.sh for 
+# modify launch.sh for setting multiple GPUs for training
 
 # for training a single round
 bash launch.sh --config configs/MRCA/MRCA_R50.yaml 
